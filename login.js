@@ -2,7 +2,7 @@ const https = require("https");
 const cheerio = require("cheerio");
 const querystring = require("querystring");
 var start = require('./start');
-const url = "www.pandai.cn";
+var url = "www.pandai.cn";
 var cookieToken = {};
 var $;
 var options = {
@@ -84,15 +84,14 @@ exports.postLogin = (callback) => {
            cookieToken= start.setTokenCookie(res, html);
             $ = cheerio.load(html);
             var redirected = $('a').attr('href');
-            console.log(redirected);
-            // console.log("login_end=" + html);
-            // console.log(cookie+token);
+            // console.log(redirected);
+            //  console.log("login_end=" + html);
+            //  console.log(cookieToken);
             start.start(redirected,cookieToken);
         });
         res.on("close", () => {
             console.log("login_close");
-        })
-        callback(null, res);
+        });
     });
     req_login.write(postData);
     req_login.end();
