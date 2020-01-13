@@ -1,12 +1,12 @@
-const http = require("http");
-// const https = require("https");
+// const http = require("http");
+const https = require("https");
 const cheerio = require("cheerio");
 // const querystring = require("querystring");
 // const eventproxy=require("eventproxy");
 const schedule = require("node-schedule");
 
-const url = "http://60.18.131.131/";
-const url_prefix = "http://blog.csdn.net";
+const url = "https://60.18.131.131/";
+const url_prefix = "https://blog.csdn.net";
 
 var count = 0;
 
@@ -17,7 +17,7 @@ function loop() {
 
     for (let i = 0; i <6000; i++) {
         let num = parseInt(Math.random() * 40000);
-        //start();
+        start();
         try {
             setTimeout(start, num);
         } catch (error) {
@@ -26,7 +26,7 @@ function loop() {
     }
 }
 function start() {
-    http.get(url, (res) => {
+    https.get(url, (res) => {
         let html = "";
         res.setEncoding("utf-8");
         res.on('data', (chunk) => {
@@ -48,7 +48,7 @@ function start() {
 }
 
 function pagelist(url_page) {
-    http.get(url_page, (res) => {
+    https.get(url_page, (res) => {
         let html = "";
         res.on("data", (chunk) => {
             html += chunk;
@@ -65,7 +65,7 @@ function pagelist(url_page) {
     });
 }
 function article_details(url_detail) {
-    http.get(url_detail, (res) => {
+    https.get(url_detail, (res) => {
         let html = "";
         res.on("data", (chunk) => {
             html += chunk;
